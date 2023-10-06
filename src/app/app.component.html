@@ -1,0 +1,40 @@
+
+<h3>Add New User:</h3>
+<div class="container" [formGroup]="form">
+    <ng-container formArrayName="lessons">
+        <ng-container *ngFor="let lessonForm of lessons.controls; let i = index">
+            <div class="lesson-form-row m-3 " [formGroupName]="i">
+                <mat-form-field appearance="fill" *ngIf="extra_data[i]?.showinput">
+                    <input matInput 
+                           formControlName="name"
+                           placeholder="Lesson title">
+                        </mat-form-field>
+                        <span class="fs-bold m-3" *ngIf="!extra_data[i]?.showinput">{{lessonForm.value.name}}</span>
+                        <mat-form-field appearance="fill" *ngIf="extra_data[i]?.showinput">
+                            <input matInput 
+                            formControlName="level"
+                            placeholder="User level">
+                        </mat-form-field>
+                        <span class="fs-bold m-3" *ngIf="!extra_data[i]?.showinput" >{{lessonForm.value.level}}</span>
+
+                <button mat-raised-button class="ms-3" *ngIf="extra_data[i]?.editbtn" (click)="edit_data(i,lessonForm.value)"> 
+                    <mat-icon  style="cursor: pointer;">edit</mat-icon>
+                </button>
+                <button mat-raised-button class="ms-3"  *ngIf="extra_data[i]?.submitbtn"  (click)="submit_data(i,lessonForm.value)" > 
+                     <mat-icon  style="cursor: pointer;">check_circle_outline</mat-icon>
+                 </button>
+                 <button mat-raised-button class="ms-3" *ngIf="extra_data[i]?.updatebtn" (click)="update_data(i,lessonForm.value)" > 
+                    <mat-icon  style="cursor: pointer;">update</mat-icon>
+                </button>
+                <button mat-raised-button class="ms-3" (click)="deleteLesson(lessonForm.value,i)"> 
+                    <mat-icon class="delete-btn"  style="cursor: pointer;">delete_forever</mat-icon>
+                </button>
+            </div>
+        </ng-container>
+    </ng-container>
+  
+    <button mat-mini-fab class="ms-3" (click)="addLesson()" style="cursor: pointer;">
+        <mat-icon class="add-course-btn">add</mat-icon>
+    </button>
+
+</div>
